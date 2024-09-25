@@ -4,23 +4,24 @@ import {useState, useEffect} from "react";
 const Application = ()=>{
 
     const [timers, setTimers] = useState([]);
-    const [count, setCount] = useState(1);
     const onChangeHandler = e => setInputText(e.target.value);
 
     const [inputText, setInputText] = useState("");
 
     const [dap, setDap] = useState(2024);
-    
-    const addTimer = ()=>{
-        setTimers([...timers,{id:count}]);
-    }
 
-    const year=()=>{
+    
+    const year=(interval)=>{
+        
+        clearInterval(interval);
+
 
 
         if(inputText == dap){
 
             alert("정답입니다.")
+            
+            
         }else{
             alert("오답입니다. 정답은 2024년 입니다.")
 
@@ -31,6 +32,44 @@ const Application = ()=>{
 
             
     }
+
+
+
+    
+const Timer = (id) =>{
+
+    const [count, setCount] = useState(10);
+
+    useEffect(()=>{
+        const interval=setInterval(()=>{
+            setCount(value => value-1)
+
+        },1000);
+        
+
+ if(count <= 0){
+    alert("시간초과")
+
+    clearInterval(interval);
+
+ }
+
+        return ()=> clearInterval(interval);
+  
+    
+    },[count])
+
+
+    return(
+        <>
+        <h3>남은 시간 : {count} 초</h3>
+        </>
+    )
+
+    
+
+    
+}
 
 
 
@@ -51,32 +90,5 @@ const Application = ()=>{
     )
 }
 
-const Timer = (id) =>{
-
-    const [count, setCount] = useState(10);
-
-    useEffect(()=>{
-        const interval=setInterval(()=>{
-            setCount(value => value-1)
-
-        },1000);
-
-        if(count <= 0 ){
-            alert("시간초과")
-            return ()=>  clearInterval(interval);
-        }
-        
-
-    
-    },[count])
-
-    return(
-        <>
-        <h3>남은 시간 : {count} 초</h3>
-        </>
-    )
-
-    
-}
 
 export default Application;
