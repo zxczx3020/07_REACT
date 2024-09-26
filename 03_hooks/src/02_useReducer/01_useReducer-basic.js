@@ -37,11 +37,12 @@ const reducer = (state,action)=>{
 const UseReducerBasic=()=>{
 
     const [state,dispatch] = useReducer (reducer,{value:0});
+    /**dispatch는 value 값을 바꿔주는 함수 */
 
     return (
         <>
             <h1>count : {state.value}</h1>
-            <button onClick={()=>dispatch({type:"DECREMENT"})}>-1</button>  /**dispatch는 value 값을 바꿔주는 함수 */
+            <button onClick={()=>dispatch({type:"DECREMENT"})}>-1</button>  
             <button onClick={()=>dispatch({type:"INCREMENT"})}>+1</button>
         </>
     )
