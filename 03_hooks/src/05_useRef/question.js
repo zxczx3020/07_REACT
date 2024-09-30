@@ -2,10 +2,14 @@ import { useMemo, useState } from "react";
 
 
 const NoticeBoard= ()=>{
+    
+
+    const [nextId, setNextId] = useState(2);
 
     const[form,setForm]=useState([
-        {title:'',
-        content:''},
+        {id:1,
+            title:'기본 게시글',
+        content:'기본 내용'},
     ]);
     const [inputText, setInputText] = useState("");
     const [outputText, setOutput] = useState("");
@@ -14,26 +18,45 @@ const NoticeBoard= ()=>{
 
     const onClickHandler =e=>{
         const plusTitle = form.concat({
+            id:nextId,
             title:inputText,
             content:outputText
         })
 
         setForm(plusTitle)
-        setForm("");
+        setNextId(nextId+1)
+        setInputText("");
+        setOutput("");
 
 
     }
+
+    const onRemove = id =>{
+
+        const plusTitle = form.filter(title => title.id !== id);
+        setForm(plusTitle);
+      }
+
     const hello = form.map(form=>{
         return(
-            <label>
-            {form.title}
+            <>
+            <label key={form.id}>
+                <ul>
+                    <li>
+                {form.title}
+                </li>
+                <br/>
+                {form.content}
+
+                </ul>
+
             </label>
+            <button onClick={()=>onRemove(form.id)}>삭제</button>
+            </>
+            
         )
     })
 
-
-
-    
 
 
     return(

@@ -65,7 +65,9 @@ const onToggleCheck = (id) => {
 
   const helloList = hello.map(hello => {
    
-    return(<><input type="checkbox" class="checked" checked={hello.checked} onChange={() => onToggleCheck(hello.id)} /> 
+    return(
+    <>
+    <input type="checkbox" class="checked" checked={hello.checked} onChange={() => onToggleCheck(hello.id)} /> 
     <label key={hello.id} style=
     {{textDecoration: hello.checked ? "line-through" : "none",}}>{hello.name}
       <button onClick={()=>onRemove(hello.id)}>삭제</button>
