@@ -1,15 +1,27 @@
 import { useEffect, useState } from "react";
 import MenuItem from "../components/MenuItem";
-import { useNavigate } from "react-router-dom";
-import { getMenuList } from "../api/MenuApi";
+import { useNavigate, useParams } from "react-router-dom";
+import { getMenuDetail, getMenuList } from "../api/MenuApi";
 
 const Menu = () => {
+
+    const {id} = useParams();
+
+    const navigate = useNavigate();
 
     const [menuList, setMenuList]=useState([]);
 
     useEffect(()=>{
-        setMenuList(getMenuList());
+        console.log(id);
+        setMenuList(getMenuList(id));
+        console.log(getMenuDetail(id));
     },[])
+    
+    const onClickcheck=()=>{
+
+        navigate("/menuOO");
+
+    }
 
 
     return(
@@ -19,7 +31,7 @@ const Menu = () => {
         {menuList.map(menu=><MenuItem key={menu.id} menu={menu}/>)}
         </ul>
 
-        <button>주문하기</button>
+        <button onClick={onClickcheck}>주문하기</button>
         </>
     )
 }
